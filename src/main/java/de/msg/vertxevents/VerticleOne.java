@@ -2,13 +2,12 @@ package de.msg.vertxevents;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
-import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 
 public class VerticleOne extends AbstractVerticle {
 
-    final Logger logger = LoggerFactory.getLogger(VertxEvents.class);
+    final Logger logger = LoggerFactory.getLogger(VerticleOne.class);
     
     @Override
     public void start(Future<Void> startFuture) throws Exception {
@@ -30,8 +29,8 @@ public class VerticleOne extends AbstractVerticle {
         
         CustomObject customObject = CustomObject.builder().id(1).name("myname").build(); 
                 
-        vertx.eventBus().send(Events.TIMER_EVENT.toString(), customObject, message -> {
-            logger.info("Verticle one received : " + message.result().body());
+        vertx.eventBus().send(Events.TIMER_EVENT.toString(), customObject, messageAsyncResult -> {
+            logger.info("Verticle one received : " + messageAsyncResult.result().body());
         });
     }
 }
